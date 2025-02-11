@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.1 Φωτοσύνθεση</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .question { margin-bottom: 15px; }
+        .hidden { display: none; }
+        .correct { color: green; }
+        .wrong { color: red; }
+    </style>
+</head>
+<body>
+    <h1>2.1 Φωτοσύνθεση</h1>
+    <p>Αυτότροφοι οργανισμοί είναι αυτοί που παράγουν μόνοι τους την τροφή τους με τη διαδικασία της φωτοσύνθεσης.</p>
+    <p>Αυτότροφοι οργανισμοί είναι τα φυτά.</p>
+    <p>Η φωτοσύνθεση γίνεται στους χλωροπλαστές των φυτικών κυττάρων, που περιέχουν τη χλωροφύλλη.</p>
+    <p>Η χλωροφύλλη είναι μια χρωστική που δεσμεύει την ηλιακή ακτινοβολία και σε αυτήν οφείλεται το πράσινο χρώμα των φυτών.</p>
+    <p>Κατά τη διαδικασία της φωτοσύνθεσης, τα φυτά απορροφούν διοξείδιο από την ατμόσφαιρα και νερό από τις ρίζες και, με τη βοήθεια της ενέργειας της ηλιακής ακτινοβολίας, συνθέτουν γλυκόζη και απελευθερώνουν στην ατμόσφαιρα οξυγόνο.</p>
+    <p>Η γλυκόζη περιέχει την ενέργεια της ηλιακής ακτινοβολίας.</p>
+    <p>Η ενέργεια που περιέχει η γλυκόζη χρησιμοποιείται είτε για τη σύνθεση άλλων ουσιών είτε για τις λειτουργίες του φυτού.</p>
+    <p>Φυτοφάγοι οργανισμοί είναι τα ζώα που τρέφονται με φυτά.</p>
+    <p>Όλοι οι οργανισμοί εξαρτώνται από τους αυτότροφους οργανισμούς.</p>
+
+    <h2>Ερωτήσεις</h2>
+    <form id="quizForm">
+        <div class="question">
+            <p>1. Οι οργανισμοί που παράγουν μόνοι τους την τροφή τους ονομάζονται:</p>
+            <label><input type="radio" name="q1" value="α"> α. φυτοφάγοι</label>
+            <label><input type="radio" name="q1" value="β"> β. αυτότροφοι</label>
+            <label><input type="radio" name="q1" value="γ"> γ. σαρκοφάγοι</label>
+        </div>
+
+        <div class="question">
+            <p>2. Η φωτοσύνθεση γίνεται:</p>
+            <label><input type="radio" name="q2" value="α"> α. στον πυρήνα</label>
+            <label><input type="radio" name="q2" value="β"> β. στα μιτοχόνδρια</label>
+            <label><input type="radio" name="q2" value="γ"> γ. στους χλωροπλαστές</label>
+        </div>
+
+        <div class="question">
+            <p>3. Η χλωροφύλλη:</p>
+            <label><input type="radio" name="q3" value="α"> α. απορροφά διοξείδιο</label>
+            <label><input type="radio" name="q3" value="β"> β. δεσμεύει ηλιακή ενέργεια</label>
+            <label><input type="radio" name="q3" value="γ"> γ. απελευθερώνει οξυγόνο</label>
+        </div>
+
+        <button type="button" onclick="checkAnswers()">Υποβολή</button>
+    </form>
+
+    <div id="results" class="hidden">
+        <h2>Αποτελέσματα</h2>
+        <p id="score"></p>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            let answers = {
+                q1: "β",
+                q2: "γ",
+                q3: "β"
+            };
+
+            let score = 0;
+            let totalQuestions = Object.keys(answers).length;
+            let incorrectAnswers = [];
+
+            for (let key in answers) {
+                let selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (selected) {
+                    if (selected.value === answers[key]) {
+                        score++;
+                    } else {
+                        incorrectAnswers.push(key);
+                    }
+                } else {
+                    incorrectAnswers.push(key);
+                }
+            }
+
+            let scoreText = `Σωστές απαντήσεις: ${score} από ${totalQuestions}`;
+            let feedbackText = incorrectAnswers.length === 0
+                ? "Μπράβο, απαντήσατε σωστά σε όλες τις ερωτήσεις!"
+                : `Λάθος απαντήσεις στις ερωτήσεις: ${incorrectAnswers.join(", ")}. Ξαναπροσπαθήστε!`;
+
+            document.getElementById("score").innerText = scoreText;
+            document.getElementById("feedback").innerText = feedbackText;
+            document.getElementById("results").classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
